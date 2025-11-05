@@ -25,9 +25,9 @@ export default async function TopMenu() {
                             </div>
                         </Link>
                 }
-                <TopMenuItem title="My Booking" pageRef="/mybooking" />
+                <TopMenuItem title="Reservations" pageRef="/reservations" />
             </div>
-            <TopMenuItem title="Booking" pageRef="/booking" />
+            <TopMenuItem title="Reserve Book" pageRef="/reserve" />
             <Image src={"/img/logo.png"} className="h-full w-auto" alt="logo" width={0} height={0} sizes="100vh" />
         </div>
     );

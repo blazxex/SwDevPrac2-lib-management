@@ -1,27 +1,30 @@
-interface VenueItem {
-    _id: string,
-    name: string,
-    address: string,
-    district: string,
-    province: string,
-    postalcode: string,
-    tel: string,
-    picture: string,
-    dailyrate: number,
-    __v: number,
-    id: string
-  }
-  
-  interface VenueJson {
-    success: boolean,
-    count: number,
-    pagination: Object,
-    data: VenueItem[]
-  }
+export interface BookItem {
+  _id: string;
+  title: string;
+  author: string;
+  ISBN: string;
+  publisher: string;
+  availableAmount: number;
+  coverPicture: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+  id: string;
+}
 
-  interface BookingItem {
-    nameLastname: string;
-    tel: string;
-    venue: string;
-    bookDate: string;
-  }
+export interface BookJson {
+  success: boolean;
+  count: number;
+  pagination?: object;
+  data: BookItem[];
+}
+
+export interface ReservationItem {
+  _id?: string;
+  borrowDate: string;
+  pickupDate: string;
+  book: string;
+  user?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
