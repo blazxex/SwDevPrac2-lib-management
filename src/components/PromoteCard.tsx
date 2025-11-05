@@ -55,10 +55,6 @@ export default function PromoteCard({ books }: PromoteCardProps) {
               <div className="text-2xl font-bold text-gray-900">Up to 3</div>
               <div className="text-gray-600">Reservation per Person</div>
             </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-gray-900">24/7</div>
-              <div className="text-gray-600">Access</div>
-            </div>
           </div>
         </div>
 
@@ -128,7 +124,7 @@ export default function PromoteCard({ books }: PromoteCardProps) {
                         (prev - 1 + featuredBooks.length) % featuredBooks.length
                     )
                   }
-                  className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-all duration-200 hover:scale-110"
+                  className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-all duration-200 hover:scale-110 hover:cursor-pointer"
                 >
                   <svg
                     className="w-5 h-5 text-gray-700"
@@ -148,7 +144,7 @@ export default function PromoteCard({ books }: PromoteCardProps) {
                   onClick={() =>
                     setCurrentSlide((prev) => (prev + 1) % featuredBooks.length)
                   }
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-all duration-200 hover:scale-110"
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-all duration-200 hover:scale-110 hover:cursor-pointer"
                 >
                   <svg
                     className="w-5 h-5 text-gray-700"
