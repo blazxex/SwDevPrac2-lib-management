@@ -23,7 +23,7 @@ export default function PromoteCard({ books }: PromoteCardProps) {
   }, [featuredBooks.length]);
 
   return (
-    <div className="h-screen bg-gray-50 flex items-center justify-center overflow-hidden">
+    <div className="h-full bg-gray-50 flex items-center justify-center overflow-hidden">
       <div className="container mx-auto px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div className="space-y-8">
           <div className="space-y-4">

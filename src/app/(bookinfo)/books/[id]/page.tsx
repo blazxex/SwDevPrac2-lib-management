@@ -3,14 +3,13 @@ import Image from "next/image";
 import { BookItem } from "../../../../../interface";
 import Link from "next/link";
 import ImageModal from "../../../../components/ImageModal";
-
 export default async function BookDetailPage({
   params,
 }: {
-  params: Promise<{ vid: string }>;
+  params: Promise<{ id: string }>;
 }) {
-  const { vid } = await params;
-  const bookDetail = await getBook(vid);
+  const { id } = await params;
+  const bookDetail = await getBook(id);
   const book: BookItem = bookDetail.data;
 
   return (
@@ -22,8 +21,18 @@ export default async function BookDetailPage({
               href="/books"
               className="inline-flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all duration-200"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
               </svg>
               Back to Catalog
             </Link>
@@ -113,17 +122,19 @@ export default async function BookDetailPage({
               </div>
 
               <div className="mt-8 pt-6 border-t border-gray-200">
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <button
-                    className={`flex-1 px-6 py-3 rounded-lg font-medium transition-colors ${
-                      book.availableAmount > 0
-                        ? "bg-blue-600 text-white hover:bg-blue-700"
-                        : "bg-gray-300 text-gray-500 cursor-not-allowed"
-                    }`}
-                    disabled={book.availableAmount === 0}
-                  >
-                    {book.availableAmount > 0 ? "Reserve Book" : "Unavailable"}
-                  </button>
+                <div className="flex flex-col sm:flex-row gap-3 text-white">
+                  {book.availableAmount > 0 ? (
+                    <Link
+                      href={`/reserve?bookId=${book.id}`}
+                      className="flex-1 px-6 py-3 rounded-lg font-medium transition-colors bg-blue-600 text-white hover:bg-blue-700 text-center"
+                    >
+                      Reserve Book
+                    </Link>
+                  ) : (
+                    <div className="flex-1 px-6 py-3 rounded-lg font-medium bg-gray-300 text-gray-500 cursor-not-allowed text-center">
+                      Unavailable
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
