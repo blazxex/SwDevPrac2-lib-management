@@ -28,3 +28,14 @@ export interface ReservationItem {
   createdAt?: string;
   updatedAt?: string;
 }
+
+export interface UserProfile {
+  _id: string;
+  name: string;
+  email: string;
+  tel: string;
+  role: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
