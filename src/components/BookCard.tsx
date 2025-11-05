@@ -100,7 +100,7 @@ export default function BookCard({
         </h3>
         {bookItem && (
           <div className="space-y-1 mb-3">
-            <p className="text-gray-600 text-sm">{bookItem.title}</p>
+            <p className="text-gray-600 text-md font-bold">{bookItem.title}</p>
             <p className="text-gray-600 text-sm">
               <span className="font-medium">Author:</span> {bookItem.author}
             </p>
