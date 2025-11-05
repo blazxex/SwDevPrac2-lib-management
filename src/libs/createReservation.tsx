@@ -1,0 +1,20 @@
+export default async function createReservation(token:string, borrowDate:string, pickupDate: string, book:string) {
+
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/reservations`, {
+        method: "POST",
+        headers: {
+            authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            borrowDate: borrowDate,
+            pickupDate: pickupDate,
+            book: book,
+        }),
+    })
+    if(!response.ok) {
+        throw new Error("Failed to create reservation")
+    }
+
+    return await response.json()
+}
