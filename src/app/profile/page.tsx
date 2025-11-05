@@ -27,6 +27,10 @@ export default async function ProfilePage() {
   }
 
   const user = profileData.data;
+  const memberSince = new Date(user.createdAt);
+  const daysSinceMember = Math.floor(
+    (new Date().getTime() - memberSince.getTime()) / (1000 * 60 * 60 * 24)
+  );
 
   return (
     <main className="min-h-screen bg-white p-6 mt-[50px]">
@@ -62,7 +66,7 @@ export default async function ProfilePage() {
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-6">
                 <div className="group">
-                  <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
+                  <label className="text-sm font-semibold text-gray-700 mb-2 flex items-center">
                     <svg
                       className="w-4 h-4 mr-2 text-blue-500"
                       fill="currentColor"
@@ -79,7 +83,7 @@ export default async function ProfilePage() {
                 </div>
 
                 <div className="group">
-                  <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
+                  <label className="text-sm font-semibold text-gray-700 mb-2 flex items-center">
                     <svg
                       className="w-4 h-4 mr-2 text-green-500"
                       fill="currentColor"
@@ -97,7 +101,7 @@ export default async function ProfilePage() {
 
               <div className="space-y-6">
                 <div className="group">
-                  <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
+                  <label className="text-sm font-semibold text-gray-700 mb-2 flex items-center">
                     <svg
                       className="w-4 h-4 mr-2 text-purple-500"
                       fill="currentColor"
@@ -113,7 +117,7 @@ export default async function ProfilePage() {
                   </label>
                   <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 group-hover:border-purple-300 transition-colors">
                     <p className="text-gray-900 font-medium">
-                      {new Date(user.createdAt).toLocaleDateString("en-US", {
+                      {memberSince.toLocaleDateString("en-US", {
                         year: "numeric",
                         month: "long",
                         day: "numeric",
@@ -123,7 +127,7 @@ export default async function ProfilePage() {
                 </div>
 
                 <div className="group">
-                  <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
+                  <label className="text-sm font-semibold text-gray-700 mb-2 flex items-center">
                     <svg
                       className="w-4 h-4 mr-2 text-blue-500"
                       fill="currentColor"
@@ -135,15 +139,12 @@ export default async function ProfilePage() {
                         clipRule="evenodd"
                       />
                     </svg>
-                    Last Updated
+                    You have been a member for
                   </label>
                   <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 group-hover:border-blue-300 transition-colors">
-                    <p className="text-gray-900 font-medium">
-                      {new Date(user.updatedAt).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
+                    <p className="text-sm text-gray-600 mt-1">
+                      {daysSinceMember} day
+                      {daysSinceMember !== 1 ? "s" : ""}
                     </p>
                   </div>
                 </div>
