@@ -4,9 +4,14 @@ import getBooks from "@/libs/getBooks";
 export default function Books() {
   const books = getBooks();
   return (
-    <main>
-      <h1 className="text-xl text-center font-medium p-5">Select your book</h1>
-      <BookCatalog booksJson={books} />
+    <main className="bg-gray-50 min-h-screen">
+      <div className="container mx-auto px-4 py-8">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Book Library</h1>
+          <p className="text-gray-600">Browse and select your favorite books</p>
+        </div>
+        <BookCatalog booksJson={books} />
+      </div>
     </main>
   );
 }
