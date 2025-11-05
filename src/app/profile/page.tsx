@@ -55,7 +55,7 @@ export default async function ProfilePage() {
               className={`inline-block px-4 py-1 rounded-full text-sm font-medium ${
                 user.role === "admin"
                   ? "bg-yellow-400 text-yellow-900"
-                  : "bg-white/20 text-white"
+                  : "bg-white/20 text-black"
               }`}
             >
               {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
