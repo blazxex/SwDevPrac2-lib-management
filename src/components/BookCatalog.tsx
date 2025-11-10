@@ -269,7 +269,7 @@ export default function BookCatalog({ initialBooks }: BookCatalogProps) {
           >
             <BookCard
               bookItem={bookItem}
-              venueName={bookItem.title}
+              bookName={bookItem.title}
               imgSrc={bookItem.coverPicture}
               isAdmin={isAdmin}
               onEdit={handleEditBook}
