@@ -105,11 +105,6 @@ export default function BookCatalog({ initialBooks }: BookCatalogProps) {
     setIsModalOpen(true);
   };
 
-  const handleEditBook = (book: BookItem) => {
-    setModalMode("edit");
-    setSelectedBook(book);
-    setIsModalOpen(true);
-  };
 
   const handleDeleteBook = async (bookId: string) => {
     if (!session?.user?.token) return;
@@ -272,7 +267,6 @@ export default function BookCatalog({ initialBooks }: BookCatalogProps) {
               bookName={bookItem.title}
               imgSrc={bookItem.coverPicture}
               isAdmin={isAdmin}
-              onEdit={handleEditBook}
               onDelete={handleDeleteBook}
             />
           </Link>

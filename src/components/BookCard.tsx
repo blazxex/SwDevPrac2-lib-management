@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import InteractiveCard from "./InteractiveCard";
 import { Rating } from "@mui/material";
@@ -10,7 +11,6 @@ interface BookCardProps {
   imgSrc: string;
   onRating?: Function;
   isAdmin: boolean;
-  onEdit?: (book: BookItem) => void;
   onDelete?: (bookId: string) => void;
 }
 
@@ -20,15 +20,15 @@ export default function BookCard({
   imgSrc,
   onRating,
   isAdmin,
-  onEdit,
   onDelete,
 }: BookCardProps) {
   const testid = bookName + " Rating";
+  const router = useRouter();
 
   const handleEdit = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (onEdit) onEdit(bookItem);
+    router.push(`/books/${bookItem.id}?edit=true`);
   };
 
   const handleDelete = (e: React.MouseEvent) => {
@@ -100,7 +100,6 @@ export default function BookCard({
         </h3>
         {bookItem && (
           <div className="space-y-1 mb-3">
-            <p className="text-gray-600 text-md font-bold">{bookItem.title}</p>
             <p className="text-gray-600 text-sm">
               <span className="font-medium">Author:</span> {bookItem.author}
             </p>
@@ -135,7 +134,7 @@ export default function BookCard({
             onClick={(e) => {
               e.stopPropagation();
             }}
-            onChange={(e, value) => {
+            onChange={(_, value) => {
               onRating(bookName, value ?? 0);
             }}
           />

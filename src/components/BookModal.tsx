@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { BookItem } from "../../interface";
-
+import Image from "next/image";
 interface BookModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -103,9 +103,11 @@ export default function BookModal({
                 {formData.coverPicture &&
                 formData.coverPicture.trim() !== "" &&
                 !imageError ? (
-                  <img
+                  <Image
                     src={formData.coverPicture}
                     alt="Book cover preview"
+                    width={500}
+                    height={320}
                     className="w-full h-full object-contain"
                     onError={() => {
                       console.log(
@@ -135,7 +137,6 @@ export default function BookModal({
               </div>
             </div>
 
-            {/* Right side - Form */}
             <div className="space-y-4">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
