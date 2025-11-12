@@ -9,10 +9,16 @@ export default function TopMenuItem({
 }) {
   return (
     <Link
-      className="w-[140px]  flex justify-center items-center hover:bg-gray-200"
       href={pageRef}
+      className="relative w-[140px] flex justify-center items-center
+                  transition-all duration-300 group
+                 hover:bg-gray-200"
     >
-      <div className="text-yellow-900 font-bold font-sans">{title}</div>
+      <div className="text-blue-900 font-bold font-sans">{title}</div>
+      <span
+        className="absolute bottom-0 left-0 w-0 h-[2px] bg-blue-900
+                   transition-all duration-300 group-hover:w-full"
+      ></span>
     </Link>
   );
 }

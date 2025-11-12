@@ -32,11 +32,14 @@ export default function UserProfileDropdown({
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center h-full px-3 text-yellow-900 font-bold font-sans hover:bg-gray-200 transition-colors rounded"
+        className="relative flex items-center justify-center h-full px-3 min-w-[140px] text-black font-bold font-sans 
+                   transition-all duration-300 rounded group hover:bg-gray-100"
       >
-        <span className="mr-1">{userName}</span>
+        <span className="mr-1 relative">
+          {userName}
+        </span>
         <svg
-          className={`w-4 h-4 transition-transform ${
+          className={`w-4 h-4 ml-1 transition-transform ${
             isOpen ? "rotate-180" : ""
           }`}
           fill="currentColor"
@@ -48,27 +51,39 @@ export default function UserProfileDropdown({
             clipRule="evenodd"
           />
         </svg>
+        <span
+          className="absolute bottom-0 left-0 w-0 h-[2px] bg-black transition-all 
+                      duration-300 group-hover:w-full group-hover:opacity-100 opacity-0"
+        ></span>
       </button>
 
-      {isOpen && (
-        <div className="absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
-          <Link
-            href="/profile"
-            className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
-            onClick={() => setIsOpen(false)}
-          >
+      <div
+        className={`absolute right-0 top-full mt-2 mr-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50
+                    transform transition-all duration-200 origin-top
+                    ${isOpen ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-2 invisible"}`}
+      >
+        <Link
+          href="/profile"
+          onClick={() => setIsOpen(false)}
+          className="relative flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-300"
+        >
+          <span className="relative">
             Dashboard
-          </Link>
-          <hr className="my-1 border-gray-200" />
-          <Link
-            href="/api/auth/signout"
-            className="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
-            onClick={() => setIsOpen(false)}
-          >
+          </span>
+        </Link>
+
+        <hr className="border-gray-200" />
+
+        <Link
+          href="/api/auth/signout"
+          onClick={() => setIsOpen(false)}
+          className="relative flex items-center px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-all duration-300"
+        >
+          <span className="relative">
             Sign Out
-          </Link>
-        </div>
-      )}
+          </span>
+        </Link>
+      </div>
     </div>
   );
 }
