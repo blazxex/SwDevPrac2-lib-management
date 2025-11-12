@@ -37,19 +37,19 @@ export default function PromoteCard() {
   }, [featuredBooks.length]);
 
   return (
-    <div className="h-full bg-gray-50 flex items-center justify-center overflow-hidden">
+    <div className="min-h-[calc(100vh-50px)] bg-gray-50 flex items-center justify-center overflow-hidden">
       <div className="container mx-auto px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div className="space-y-10">
+        <div className="space-y-10 text-center lg:text-left">
           <div className="space-y-4">
-            <h1 className="text-5xl lg:text-6xl font-extrabold leading-tight text-gray-900">
+            <h1 className="text-4xl lg:text-5xl font-extrabold leading-tight text-gray-900">
               Library Management System
             </h1>
-            <p className="text-xl max-w-lg">
+            <p className="text-base sm:text-lg lg:text-xl max-w-lg mx-auto lg:mx-0">
               Browse and reserve your books efficiently.
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center">
             <Link href="/books" className="inline-flex">
               <span className="bg-gray-900 hover:bg-gray-800 px-8 py-4 rounded-lg font-medium 
                               text-lg transition-all transform hover:scale-105 text-white flex items-center justify-center shadow-md">
@@ -74,7 +74,6 @@ export default function PromoteCard() {
             )}
           </div>
 
-          {/* Stats */}
           <div className="flex flex-col sm:flex-row gap-6">
             <div className="flex-1 bg-white rounded-lg shadow-md p-6 text-center hover:shadow-xl transition-shadow duration-300">
               <div className="text-3xl sm:text-4xl font-bold text-blue-600">{totalBooks}</div>
