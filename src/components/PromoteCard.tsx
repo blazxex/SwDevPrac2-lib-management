@@ -25,7 +25,7 @@ export default function PromoteCard() {
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const featuredBooks = books.slice(0, 5);
-  const totalBooks = featuredBooks.length;
+  const totalBooks = books.length;
 
   useEffect(() => {
     if (featuredBooks.length > 0) {
