@@ -46,7 +46,7 @@ export default async function ProfilePage() {
   );
 
   return (
-    <main className="min-h-screen bg-white p-6 mt-[50px]">
+    <main className="h-full bg-white p-6 mt-[50px]">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-black bg-clip-text  mb-2">

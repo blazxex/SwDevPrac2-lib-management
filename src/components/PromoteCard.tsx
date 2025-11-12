@@ -1,14 +1,28 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useSession } from "next-auth/react"
 import Image from "next/image";
 import { BookItem } from "../../interface";
+import getBooks from "@/libs/getBooks";
 
-interface PromoteCardProps {
-  books: BookItem[];
-}
+export default function PromoteCard() {
+  const {data:session} = useSession()
 
-export default function PromoteCard({ books }: PromoteCardProps) {
+  const [books, setBooks] = useState<BookItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    let isMounted = true;
+    getBooks().then((res) => {
+      if (isMounted) {
+        setBooks(res.data);
+        setLoading(false);
+      }
+    });
+    return () => { isMounted = false; };
+  }, []);
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const featuredBooks = books.slice(0, 5);
   const totalBooks = featuredBooks.length;
@@ -25,35 +39,50 @@ export default function PromoteCard({ books }: PromoteCardProps) {
   return (
     <div className="h-full bg-gray-50 flex items-center justify-center overflow-hidden">
       <div className="container mx-auto px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div className="space-y-8">
+        <div className="space-y-10">
           <div className="space-y-4">
-            <h1 className="text-5xl lg:text-6xl font-bold leading-tight text-gray-900">
+            <h1 className="text-5xl lg:text-6xl font-extrabold leading-tight text-gray-900">
               Library Management System
             </h1>
-            <p className="text-xl text-gray-600 max-w-lg">
-              Browse and Reserve your book efficiently.
+            <p className="text-xl max-w-lg">
+              Browse and reserve your books efficiently.
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 text-white">
-            <Link
-              href="/books"
-              className="bg-gray-900 hover:bg-gray-800 px-8 py-4 rounded-lg font-medium text-lg transition-colors inline-flex items-center justify-center text-white"
-            >
-              Browse Books
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Link href="/books" className="inline-flex">
+              <span className="bg-gray-900 hover:bg-gray-800 px-8 py-4 rounded-lg font-medium 
+                              text-lg transition-all transform hover:scale-105 text-white flex items-center justify-center shadow-md">
+                Browse Books
+              </span>
             </Link>
+
+            {session ? (
+                <Link href="/reserve" className="inline-flex">
+                  <span className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-lg font-medium 
+                                  text-lg transition-all transform hover:scale-105 text-white flex items-center justify-center shadow-md">
+                    Reserve Books
+                  </span>
+                </Link>
+                  ) : (
+                <Link href="/api/auth/signin" className="inline-flex">
+                  <span className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-lg font-medium 
+                                  text-lg transition-all transform hover:scale-105 text-white flex items-center justify-center shadow-md">
+                    Sign In to Reserve Books
+                  </span>
+                </Link>
+            )}
           </div>
 
-          <div className="flex gap-8 text-sm">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-gray-900">
-                {totalBooks}
-              </div>
-              <div className="text-gray-600">Books</div>
+          {/* Stats */}
+          <div className="flex flex-col sm:flex-row gap-6">
+            <div className="flex-1 bg-white rounded-lg shadow-md p-6 text-center hover:shadow-xl transition-shadow duration-300">
+              <div className="text-3xl sm:text-4xl font-bold text-blue-600">{totalBooks}</div>
+              <div className="mt-1 text-sm sm:text-base">Books</div>
             </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-gray-900">Up to 3</div>
-              <div className="text-gray-600">Reservation per Person</div>
+            <div className="flex-1 bg-white rounded-lg shadow-md p-6 text-center hover:shadow-xl transition-shadow duration-300">
+              <div className="text-3xl sm:text-4xl font-bold text-green-600">Up to 3</div>
+              <div className="mt-1 text-sm sm:text-base">Reservation per Person</div>
             </div>
           </div>
         </div>
@@ -65,7 +94,7 @@ export default function PromoteCard({ books }: PromoteCardProps) {
               Featured Books
             </h3>
 
-            {featuredBooks.length > 0 ? (
+            {!loading ? (
               <>
                 {/* Carousel Container */}
                 <div className="relative h-96 overflow-hidden rounded-lg">
