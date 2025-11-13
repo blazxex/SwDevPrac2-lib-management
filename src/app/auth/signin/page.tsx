@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect  } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { TextField, Alert } from "@mui/material";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
@@ -14,6 +14,7 @@ export default function SignInPage() {
   const [message, setMessage] = useState("");
   const [severity, setSeverity] = useState<"success" | "error">("success");
 
+  const router = useRouter();
   const searchParams = useSearchParams();
 
   useEffect(() => {
@@ -29,16 +30,19 @@ export default function SignInPage() {
     setMessage("");
     const callbackUrl = searchParams.get("callbackUrl") || "/";
     const res = await signIn("credentials", {
-      redirect: true,
+      redirect: false,
       email,
       password,
-      callbackUrl,
     });
 
     if (res?.error) {
-      setMessage("Invalid credentials");
+      setMessage("Invalid email or password");
       setSeverity("error");
+    } else if (res?.ok) {
+      router.refresh();
+      router.push(callbackUrl);
     }
+
     setLoading(false);
   }
 
