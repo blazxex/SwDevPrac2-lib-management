@@ -32,8 +32,8 @@ export default function UserProfileDropdown({
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative flex items-center justify-center h-full px-3 min-w-[140px] text-black font-bold font-sans 
-                   transition-all duration-300 rounded group hover:bg-gray-100"
+        className="relative flex items-center justify-center h-[50px] px-3 min-w-[140px] text-black font-bold font-sans 
+                   transition-all duration-300 rounded group hover:bg-gray-200"
       >
         <span className="mr-1 relative">
           {userName}

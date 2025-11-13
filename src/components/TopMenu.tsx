@@ -47,8 +47,8 @@ export default function TopMenu() {
         </div>
       </button>
       
-      <div className={`${menuOpen ? "flex" : "hidden"} sm:max-h-none sm:flex flex-col sm:flex-row items-end sm:items-stretch 
-        gap-2 sm:gap-0 absolute sm:static top-[50px] right-0 bg-gray-100 sm:bg-transparent w-auto`}>
+      <div className={`${menuOpen ? "" : "h-0 sm:h-auto overflow-hidden sm:overflow-visible"} sm:max-h-none sm:flex flex-col sm:flex-row items-end sm:items-stretch 
+        absolute sm:static top-[50px] right-0 bg-gray-100 sm:bg-transparent w-auto`}>
         {session ? (<>
           <TopMenuItem title="Reserve Book" pageRef="/reserve" />
           <TopMenuItem title="My Reservations" pageRef="/reservations" />

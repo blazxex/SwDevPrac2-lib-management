@@ -2,14 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  TextField,
-  MenuItem,
-  Select,
-  InputLabel,
-  FormControl,
-  Alert,
-} from "@mui/material";
+import { TextField, MenuItem, Select, InputLabel, FormControl, Alert } from "@mui/material";
 import Link from "next/link";
 import userRegister from "@/libs/userRegister";
 
@@ -17,10 +10,12 @@ export default function SignUpPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [tel, setTel] = useState("");
-  const [password, setPassword] = useState("");
   const [role, setRole] = useState<"member" | "admin">("member");
+  const [password, setPassword] = useState("");
+
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [severity, setSeverity] = useState<"success" | "error">("success");
   
   const router = useRouter();
 
@@ -33,6 +28,7 @@ export default function SignUpPage() {
       router.push("/auth/signin?registered=true");
     } catch (err: any) {
       setMessage(err.message || "Something went wrong");
+      setSeverity("error");
     } finally {
       setLoading(false);
     }
@@ -46,11 +42,8 @@ export default function SignUpPage() {
       >
         <h1 className="text-2xl font-bold text-gray-900 text-center">Sign Up</h1>
 
-        {message && (
-          <Alert severity={message.includes("successful") ? "success" : "error"}>
-            {message}
-          </Alert>
-        )}
+        {message ? <Alert severity={severity}>{message}</Alert>
+          :""}
 
         <TextField label="Name" value={name}
           onChange={(e) => setName(e.target.value)}
@@ -68,7 +61,7 @@ export default function SignUpPage() {
         <FormControl fullWidth>
           <InputLabel id="role-label">Role</InputLabel>
           <Select labelId="role-label" value={role} label="Role"
-            onChange={(e) => setRole(e.target.value as "member" | "admin")}
+            onChange={(e) => setRole(e.target.value)}
           >
             <MenuItem value="member">Member</MenuItem>
             <MenuItem value="admin">Admin</MenuItem>

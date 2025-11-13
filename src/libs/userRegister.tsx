@@ -6,11 +6,11 @@ export default async function userRegister(name: string, email: string, tel: str
       "accept": "application/json",
     },
     body: JSON.stringify({
-      name,
-      email,
-      tel,
-      role,
-      password,
+      name: name,
+      email: email,
+      tel: tel,
+      role: role,
+      password: password,
       createdAt: new Date().toISOString(),
     }),
   });

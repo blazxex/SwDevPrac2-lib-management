@@ -10,9 +10,8 @@ export default function TopMenuItem({
   return (
     <Link
       href={pageRef}
-      className="relative w-[140px] flex justify-center items-center
-                  transition-all duration-300 group
-                 hover:bg-gray-200"
+      className="relative h-[50px] w-[140px] flex justify-center items-center
+                  transition-all duration-300 group hover:bg-gray-200"
     >
       <div className="text-blue-900 font-bold font-sans">{title}</div>
       <span

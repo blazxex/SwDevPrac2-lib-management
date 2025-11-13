@@ -1,23 +1,25 @@
 "use client";
 
-import { signIn } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
-import Link from "next/link";
 import { useState, useEffect  } from "react";
+import { useSearchParams } from "next/navigation";
 import { TextField, Alert } from "@mui/material";
+import { signIn } from "next-auth/react";
+import Link from "next/link";
 
 export default function SignInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [severity, setSeverity] = useState<"success" | "error">("success");
 
   const searchParams = useSearchParams();
 
   useEffect(() => {
     if (searchParams.get("registered") === "true") {
       setMessage("Sign up successful! You can now sign in.");
+      setSeverity("success");
     }
   }, [searchParams]);
 
@@ -33,6 +35,7 @@ export default function SignInPage() {
 
     if (res?.error) {
       setMessage("Invalid credentials");
+      setSeverity("error");
     }
     setLoading(false);
   }
@@ -45,11 +48,8 @@ export default function SignInPage() {
       >
         <h1 className="text-2xl font-bold text-gray-900 text-center">Sign In</h1>
 
-        {message && (
-          <Alert severity={message.includes("successful") ? "success" : "error"}>
-            {message}
-          </Alert>
-        )}
+        {message ? <Alert severity={severity}>{message}</Alert>
+          :""}
 
         <TextField type="email" label="Email" value={email}
           onChange={(e) => setEmail(e.target.value)}
