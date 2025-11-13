@@ -27,11 +27,12 @@ export default function SignInPage() {
     e.preventDefault();
     setLoading(true);
     setMessage("");
+    const callbackUrl = searchParams.get("callbackUrl") || "/";
     const res = await signIn("credentials", {
       redirect: true,
       email,
       password,
-      callbackUrl: "/",
+      callbackUrl,
     });
 
     if (res?.error) {
