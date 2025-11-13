@@ -6,22 +6,33 @@ import { TextField, Alert } from "@mui/material";
 import dayjs, { Dayjs } from "dayjs";
 import DateReserve from "@/components/DateReserve";
 import createReservation from "@/libs/createReservation";
+import getBook from "@/libs/getBook";
+import BookPreview from "@/components/BookPreview";
 
 export default function ReservePage() {
     const {data:session} = useSession()
+
+    const [bookID, setBookID] = useState<string>("");
+    const [borrowDate, setBorrowDate] = useState<Dayjs | null>(null);
+    const [pickupDate, setPickupDate] = useState<Dayjs | null>(null);
 
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
     const [severity, setSeverity] = useState<"success" | "error">("success");
 
+    const [book, setBook] = useState<any | null>(null);
+    const [loadingBook, setLoadingBook] = useState(false);
+    const [isTyping, setIsTyping] = useState(false);
+
     const searchParams = useSearchParams();
 
     useEffect(() => {
-    const bookIdFromUrl = searchParams.get("bookId");
-    if (bookIdFromUrl) {
-      setBookID(bookIdFromUrl);
-    }
-  }, [searchParams]);
+        const bookIdFromUrl = searchParams.get("bookId");
+        if (bookIdFromUrl) {
+            setBookID(bookIdFromUrl);
+            fetchBook(bookIdFromUrl);
+        }
+    }, [searchParams]);
 
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
@@ -46,9 +57,28 @@ export default function ReservePage() {
         setLoading(false);
     };
 
-    const [bookID, setBookID] = useState<string>("");
-    const [borrowDate, setBorrowDate] = useState<Dayjs | null>(null);
-    const [pickupDate, setPickupDate] = useState<Dayjs | null>(null);
+    async function fetchBook(id: string) {
+        if (!id.trim()) {
+            setBook(null);
+        return;
+        }
+
+        setLoadingBook(true);
+        setBook(null);
+        try {
+            const res = await getBook(id.trim());
+            if (res?.data) {
+                setBook(res.data);
+            } else {
+                setBook(null);
+            }
+        } catch (error) {
+            // console.error("Error fetching book:", error);
+            setBook(null);
+        } finally {
+            setLoadingBook(false);
+        }
+    }
 
     return (
         <main className="overflow-hidden min-h-[calc(100vh-50px)] flex items-center justify-center bg-gray-50">
@@ -63,8 +93,15 @@ export default function ReservePage() {
                 
                 <div className="flex flex-col gap-5">
                           
-                    <TextField name="Book-ID" label="Book ID" value={bookID}
-                        onChange={(e) => setBookID(e.target.value)} fullWidth required/>
+                    <div>
+                        <TextField name="Book-ID" label="Book ID" value={bookID}
+                            onChange={(e) => setBookID(e.target.value)} 
+                            onFocus={() => setIsTyping(true)}
+                            onBlur={(e) => {setIsTyping(false); fetchBook(e.target.value)}}
+                            fullWidth required/>
+                        <BookPreview book={book} loadingBook={loadingBook} 
+                            isTyping={isTyping} bookID={bookID}/>
+                    </div>
 
                     <div>
                         <div className="text-md text-gray-600">Borrow Date</div>
