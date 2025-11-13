@@ -367,7 +367,13 @@ export default function BookDetailPage({
                   <div className="flex flex-col sm:flex-row gap-3 text-white">
                     {book.availableAmount > 0 ? (
                       <Link
-                        href={`/reserve?bookId=${book.id}`}
+                        href={
+                          session
+                            ? `/reserve?bookId=${book.id}`
+                            : `/auth/signin?callbackUrl=${encodeURIComponent(
+                                `${process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'}/reserve?bookId=${book.id}`
+                              )}`
+                        }
                         className="flex-1 px-6 py-3 rounded-lg font-medium transition-colors bg-blue-600 text-white hover:bg-blue-700 text-center"
                       >
                         Reserve Book
