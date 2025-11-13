@@ -1,13 +1,33 @@
 "use client";
 import Image from "next/image";
 import TopMenuItem from "./TopMenuItem";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react"
 import Link from "next/link";
+import getUserProfile from "@/libs/getUserProfile";
 import UserProfileDropdown from "./UserProfileDropdown";
 
 export default function TopMenu() {
-  const {data:session} = useSession()
+  const { data: session} = useSession()
+
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const checkAdminStatus = async () => {
+      if (session?.user?.token) {
+        try {
+          const profile = await getUserProfile(session.user.token);
+          setIsAdmin(profile.data?.role === "admin");
+        } 
+        catch (error) {
+          console.error("Error checking admin status:", error);
+          setIsAdmin(false);
+        }
+      }
+    };
+
+    checkAdminStatus();
+  }, [session]);
 
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -50,8 +70,16 @@ export default function TopMenu() {
       <div className={`${menuOpen ? "" : "h-0 sm:h-auto overflow-hidden sm:overflow-visible"} sm:max-h-none sm:flex flex-col sm:flex-row items-end sm:items-stretch 
         absolute sm:static top-[50px] right-0 bg-gray-100 sm:bg-transparent w-auto`}>
         {session ? (<>
-          <TopMenuItem title="Reserve Book" pageRef="/reserve" />
-          <TopMenuItem title="My Reservations" pageRef="/reservations" />
+          {
+            isAdmin ? (<>
+              <TopMenuItem title="Reservations" pageRef="/reservations" />
+            </>
+            ) : (<>
+              <TopMenuItem title="Reserve Book" pageRef="/reserve" />
+              <TopMenuItem title="My Reservations" pageRef="/reservations" />
+            </>
+            )
+          }
           <UserProfileDropdown userName={session.user?.name || "User"} />
         </>
         ) : (

@@ -13,7 +13,7 @@ export default async function createReservation(token:string, borrowDate:string,
         }),
     })
     if(!response.ok) {
-        throw new Error((await response.json()).error )
+        throw new Error((await response.json()).error)
     }
 
     return await response.json()

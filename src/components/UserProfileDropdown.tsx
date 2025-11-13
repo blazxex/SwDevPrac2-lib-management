@@ -68,7 +68,7 @@ export default function UserProfileDropdown({
           className="relative flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-300"
         >
           <span className="relative">
-            Dashboard
+            Profile
           </span>
         </Link>
 

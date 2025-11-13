@@ -13,7 +13,7 @@ export default async function updateReservation(token:string, id:string, borrowD
         }),
     })
     if(!response.ok) {
-        throw new Error("Failed to update reservation")
+        throw new Error((await response.json()).error)
     }
 
     return await response.json()
