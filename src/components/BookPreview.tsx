@@ -5,13 +5,13 @@ import Image from "next/image";
 
 export default function BookPreview({ book, loadingBook, isTyping, bookID }: { book: any | null; loadingBook: boolean, isTyping: boolean, bookID: string }) {
     return (
-        <div className="mt-2">
+        <div>
             {loadingBook ? (
                 <div className="flex justify-center py-4">
                     <CircularProgress size={28} />
                 </div>
             ) : book ? (
-                <div className="flex items-center gap-4 border rounded-lg p-3 bg-white">
+                <div className="mt-2 flex items-center gap-4 border rounded-lg p-3 bg-white">
                     {book.coverPicture ? (
                         <div className="relative w-16 h-20">
                             <Image
@@ -42,7 +42,7 @@ export default function BookPreview({ book, loadingBook, isTyping, bookID }: { b
                 ""
             ) : (
                 bookID && (
-                    <div className="text-sm text-red-500">
+                    <div className="mt-2 text-sm text-red-500">
                         No book found with ID: <strong>{bookID}</strong>.
                     </div>
                 )
