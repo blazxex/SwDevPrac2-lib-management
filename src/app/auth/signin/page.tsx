@@ -26,6 +26,7 @@ export default function SignInPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
+    setMessage("");
     const res = await signIn("credentials", {
       redirect: true,
       email,

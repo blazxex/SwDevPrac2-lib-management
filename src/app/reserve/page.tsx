@@ -1,38 +1,49 @@
 "use client";
-import DateReserve from "@/components/DateReserve";
-import { TextField } from "@mui/material";
-import { useState } from "react";
-import dayjs, { Dayjs } from "dayjs";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/redux/store";
-import { addReservation } from "@/redux/features/reservationSlice";
-import { ReservationItem } from "../../../interface";
-import createReservation from "@/libs/createReservation";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react"
+import { TextField, Alert } from "@mui/material";
+import dayjs, { Dayjs } from "dayjs";
+import DateReserve from "@/components/DateReserve";
+import createReservation from "@/libs/createReservation";
 
 export default function ReservePage() {
-    const dispatch = useDispatch<AppDispatch>();
-    
     const {data:session} = useSession()
 
-    const makeReservation = async () => {
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState("");
+    const [severity, setSeverity] = useState<"success" | "error">("success");
+
+    const searchParams = useSearchParams();
+
+    useEffect(() => {
+    const bookIdFromUrl = searchParams.get("bookId");
+    if (bookIdFromUrl) {
+      setBookID(bookIdFromUrl);
+    }
+  }, [searchParams]);
+
+    async function handleSubmit(e: React.FormEvent) {
+        e.preventDefault();
+        setLoading(true);
+        setMessage("");
         if (borrowDate && pickupDate && bookID && session?.user.token) {
-            const response = await createReservation(
-                session.user.token,
-                dayjs(borrowDate).toISOString(),
-                dayjs(borrowDate).toISOString(),
-                bookID
-            )
-
-            console.log(response)
-
-            const item: ReservationItem = {
-                borrowDate: dayjs(borrowDate).format("YYYY/MM/DD"),
-                pickupDate: dayjs(pickupDate).format("YYYY/MM/DD"),
-                book: bookID,
-            };
-            dispatch(addReservation(item));
+            try {
+                await createReservation(
+                    session.user.token,
+                    dayjs(borrowDate).toISOString(),
+                    dayjs(pickupDate).toISOString(),
+                    bookID
+                );
+                setMessage("Reservation successful!");
+                setSeverity("success");
+            } catch (err) {
+                setMessage("" + err);
+                setSeverity("error");
+                setLoading(false);
+            }
         }
+        setLoading(false);
     };
 
     const [bookID, setBookID] = useState<string>("");
@@ -40,24 +51,39 @@ export default function ReservePage() {
     const [pickupDate, setPickupDate] = useState<Dayjs | null>(null);
 
     return (
-        <main>
-            <div>
-                <h1 className="text-2xl text-yellow-900 font-bold font-sans text-center">Book Reservations</h1>
-                <div className="m-3 gap-2 flex flex-col flex-wrap content-around justify-around">
-                    <TextField variant="standard"name="Book-ID"label="Book ID"
-                        value={bookID} onChange={(event) => setBookID(event.target.value)} />
-                    <div className="text-md text-left text-gray-600">Borrow Date</div>
-                    <DateReserve
-                        onDateChange={(value: Dayjs) => {
-                            setBorrowDate(value);
-                        }} />
-                    <div className="text-md text-left text-gray-600">Pickup Date</div>
-                    <DateReserve onDateChange={(value: Dayjs) => { setPickupDate(value); }} />
-                    <button name="Book Venue" className="block rounded-md bg-yellow-700 
-                        hover:bg-yellow-900 px-3 py-2 shadow-sm text-white"
-                        onClick={makeReservation}>Book Venue</button>
+        <main className="overflow-hidden min-h-[calc(100vh-50px)] flex items-center justify-center bg-gray-50">
+            <form
+                onSubmit={handleSubmit}
+                className="bg-white p-8 rounded-2xl shadow-lg min-w-96 w-1/4 space-y-6 gap-5 flex flex-col"
+            >
+                <h1 className="text-2xl font-bold text-gray-900 text-center">Book Reservation</h1>
+
+                {message ? <Alert severity={severity}>{message}</Alert>
+                          :""}
+                
+                <div className="flex flex-col gap-5">
+                          
+                    <TextField name="Book-ID" label="Book ID" value={bookID}
+                        onChange={(e) => setBookID(e.target.value)} fullWidth required/>
+
+                    <div>
+                        <div className="text-md text-gray-600">Borrow Date</div>
+                        <DateReserve onDateChange={(value: Dayjs) => setBorrowDate(value)} />
+                    </div>
+
+                    <div>
+                        <div className="text-md text-gray-600">Pickup Date</div>
+                        <DateReserve onDateChange={(value: Dayjs) => setPickupDate(value)} />
+                    </div>
+
+                    <button
+                    type="submit" disabled={loading}
+                    className="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold transition-colors"
+                    >
+                    {loading ? "Reserving..." : "Reserve Book"}
+                    </button>
                 </div>
-            </div>
+            </form>
         </main>
     );
 }

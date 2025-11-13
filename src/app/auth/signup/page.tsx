@@ -22,6 +22,7 @@ export default function SignUpPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
+    setMessage("");
 
     try {
       await userRegister(name, email, tel, role, password);
