@@ -128,14 +128,14 @@ export default function EditReservationModal({
                         <button
                             type="submit"
                             disabled={loading}
-                            className="flex-1 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold transition-colors"
+                            className="flex-1 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium transition-colors"
                         >
                             {loading ? "Updating..." : "Update Reservation"}
                         </button>
                         <button
                             type="button"
                             onClick={() => onClose()}
-                            className="flex-1 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-semibold transition-colors"
+                            className="flex-1 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium transition-colors"
                         >
                             Cancel
                         </button>

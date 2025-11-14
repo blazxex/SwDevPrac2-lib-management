@@ -164,7 +164,7 @@ export default function ReservationList() {
                                 { reservation.book && (
                                     <Link href={`/books/${reservation.book._id}`}
                                     className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-center rounded-lg transition-colors">
-                                    <span className="text-white">
+                                    <span className="font-medium text-white">
                                         Book Information
                                     </span>
                                     </Link>
@@ -174,13 +174,17 @@ export default function ReservationList() {
                                     onClick={() => setEditingReservation(reservation)}
                                     className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-colors"
                                 >
-                                    Edit Reservation
+                                    <span className="font-medium text-white">
+                                        Edit Reservation
+                                    </span>
                                 </button>
                                 <button
                                     onClick={() => handleDelete(reservation)}
                                     className="px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg transition-colors"
                                 >
-                                    Cancel Reservation
+                                    <span className="font-medium text-white">
+                                        Cancel Reservation
+                                    </span>
                                 </button>
                             </div>
                         </div>

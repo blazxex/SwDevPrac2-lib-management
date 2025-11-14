@@ -14,7 +14,7 @@ export default function SignOutPage() {
             onClick={() => signOut({ callbackUrl: "/" })}
             className="px-6 py-3 bg-red-600 hover:bg-red-500 rounded-lg transition-colors"
           >
-            <span className="font-bold text-white">
+            <span className="font-medium text-white">
               Sign Out
             </span>
           </button>
@@ -22,7 +22,7 @@ export default function SignOutPage() {
             href="/"
             className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
           >
-            <span className="font-bold text-white">
+            <span className="font-medium text-white">
               Cancel
             </span>
           </a>
