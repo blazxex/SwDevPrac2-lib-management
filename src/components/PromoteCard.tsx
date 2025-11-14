@@ -5,9 +5,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { BookItem } from "../../interface";
 import getBooks from "@/libs/getBooks";
+import getUserProfile from "@/libs/getUserProfile";
 
 export default function PromoteCard() {
-  const {data:session} = useSession()
+  const { data: session} = useSession()
 
   const [books, setBooks] = useState<BookItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -22,6 +23,25 @@ export default function PromoteCard() {
     });
     return () => { isMounted = false; };
   }, []);
+  
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const checkAdminStatus = async () => {
+      if (session?.user?.token) {
+        try {
+          const profile = await getUserProfile(session.user.token);
+          setIsAdmin(profile.data?.role === "admin");
+        } 
+        catch (error) {
+          console.error("Error checking admin status:", error);
+          setIsAdmin(false);
+        }
+      }
+    };
+
+    checkAdminStatus();
+  }, [session]);
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const featuredBooks = books.slice(0, 5);
@@ -57,14 +77,21 @@ export default function PromoteCard() {
               </span>
             </Link>
 
-            {session ? (
+            {isAdmin ? (
+                <Link href="/reservations" className="inline-flex">
+                  <span className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-lg font-medium 
+                                  text-lg transition-all transform hover:scale-105 text-white flex items-center justify-center shadow-md">
+                    Manage Reservations
+                  </span>
+                </Link>
+            ) : session ? (
                 <Link href="/reserve" className="inline-flex">
                   <span className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-lg font-medium 
                                   text-lg transition-all transform hover:scale-105 text-white flex items-center justify-center shadow-md">
                     Reserve Books
                   </span>
                 </Link>
-                  ) : (
+            ) : (
                 <Link href="/api/auth/signin" className="inline-flex">
                   <span className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-lg font-medium 
                                   text-lg transition-all transform hover:scale-105 text-white flex items-center justify-center shadow-md">

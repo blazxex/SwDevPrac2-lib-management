@@ -111,7 +111,7 @@ export default function BookDetailPage({
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <main className="overflow-auto min-h-[calc(100vh-50px)] bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading book details...</p>
@@ -122,7 +122,7 @@ export default function BookDetailPage({
 
   if (!book) {
     return (
-      <main className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <main className="overflow-auto min-h-[calc(100vh-50px)] bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">
             Book Not Found
@@ -136,7 +136,7 @@ export default function BookDetailPage({
   }
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="overflow-auto min-h-[calc(100vh-50px)] bg-gray-50">
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <nav className="text-sm text-gray-600 mb-4 hover:text-gray-800">
@@ -174,34 +174,6 @@ export default function BookDetailPage({
 
             <div className="p-8 lg:p-12 flex flex-col justify-between">
               <div>
-                {isAdmin && (
-                  <div className="mb-4 flex gap-2">
-                    {isEditing ? (
-                      <>
-                        <button
-                          onClick={handleSave}
-                          disabled={saving}
-                          className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 transition-colors"
-                        >
-                          {saving ? "Saving..." : "Save Changes"}
-                        </button>
-                        <button
-                          onClick={handleCancel}
-                          className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
-                        >
-                          Cancel
-                        </button>
-                      </>
-                    ) : (
-                      <button
-                        onClick={() => setIsEditing(true)}
-                        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                      >
-                        Edit Book
-                      </button>
-                    )}
-                  </div>
-                )}
 
                 <div className="mb-6">
                   {isEditing ? (
@@ -362,7 +334,36 @@ export default function BookDetailPage({
                 </div>
               </div>
 
-              {!isEditing && (
+              {isAdmin ? ( 
+                <div className="mt-8 pt-6 border-t border-gray-200">
+                  <div className="flex flex-col sm:flex-row gap-3 text-white">
+                    {isEditing ? (
+                      <>
+                        <button
+                          onClick={handleSave}
+                          disabled={saving}
+                          className="flex-1 px-6 py-3 bg-green-600 font-medium text-white rounded-lg hover:bg-green-500 disabled:opacity-50 transition-colors"
+                        >
+                          {saving ? "Saving..." : "Save Changes"}
+                        </button>
+                        <button
+                          onClick={handleCancel}
+                          className="flex-1 px-6 py-3  bg-gray-700 font-medium text-white rounded-lg hover:bg-gray-600 transition-colors"
+                        >
+                          Cancel
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        onClick={() => setIsEditing(true)}
+                        className="flex-1 px-6 py-3 rounded-lg font-medium transition-colors bg-blue-600 text-white hover:bg-blue-500 text-center"
+                      >
+                        Edit Book Information
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ) : (
                 <div className="mt-8 pt-6 border-t border-gray-200">
                   <div className="flex flex-col sm:flex-row gap-3 text-white">
                     {book.availableAmount > 0 ? (

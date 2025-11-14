@@ -154,7 +154,7 @@ export default function ReservationList() {
                             )}
                             { isAdmin && (
                                 <p className="text-md text-black mt-3">
-                                    <span className="font-bold">Reserve by: </span>
+                                    <span className="font-bold">Reserved by: </span>
                                     {reservation.user.name} ({reservation.user._id})
                                 </p>
                             )}
