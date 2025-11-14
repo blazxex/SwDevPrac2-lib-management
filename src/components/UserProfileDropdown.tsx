@@ -65,9 +65,9 @@ export default function UserProfileDropdown({
         <Link
           href="/profile"
           onClick={() => setIsOpen(false)}
-          className="relative flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-300"
+          className="relative flex items-center px-4 py-3 hover:bg-gray-100 transition-all duration-300"
         >
-          <span className="relative">
+          <span className="relative text-sm text-black">
             Profile
           </span>
         </Link>
@@ -77,9 +77,9 @@ export default function UserProfileDropdown({
         <Link
           href="/api/auth/signout"
           onClick={() => setIsOpen(false)}
-          className="relative flex items-center px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-all duration-300"
+          className="relative flex items-center px-4 py-3 hover:bg-red-50 transition-all duration-300"
         >
-          <span className="relative">
+          <span className="relative text-sm text-red-600">
             Sign Out
           </span>
         </Link>

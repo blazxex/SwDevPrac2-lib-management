@@ -46,19 +46,20 @@ export default async function ProfilePage() {
   );
 
   return (
-    <main className="h-full bg-white p-6 mt-[50px]">
+    <main className="bg-gray-50 overflow-auto min-h-[calc(100vh-50px)]">
+      <div className="container mx-auto px-4 py-8">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">User Profile</h1>
+            <p className="text-gray-600">View your information</p>
+          </div>
+      </div>
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-black bg-clip-text  mb-2">
-            User Profile
-          </h1>
-        </div>
 
         <div className="bg-white/80 backdrop-blur-sm shadow-xl rounded-2xl border border-white/20 overflow-hidden">
           <div className="bg-gray-100 p-6 text-center">
             <div className="w-24 h-24 mx-auto mb-4 bg-white/20 rounded-full flex items-center justify-center">
-              <div className="w-16 h-16 bg-red-200 rounded-full flex items-center justify-center">
-                <span className="text-2xl font-bold text-blue-600">
+              <div className="w-16 h-16 bg-gray-600 rounded-full flex items-center justify-center">
+                <span className="text-2xl font-bold text-white">
                   {user.name.charAt(0).toUpperCase()}
                 </span>
               </div>

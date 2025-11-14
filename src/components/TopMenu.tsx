@@ -53,7 +53,7 @@ export default function TopMenu() {
             />
           </Link>
         </div>
-        <TopMenuItem title="Browse Books" pageRef="/books" />
+        <TopMenuItem title="Book Library" pageRef="/books" />
       </div>
 
       <button
@@ -75,7 +75,7 @@ export default function TopMenu() {
               <TopMenuItem title="Reservations" pageRef="/reservations" />
             </>
             ) : (<>
-              <TopMenuItem title="Reserve Book" pageRef="/reserve" />
+              <TopMenuItem title="Reserve" pageRef="/reserve" />
               <TopMenuItem title="My Reservations" pageRef="/reservations" />
             </>
             )

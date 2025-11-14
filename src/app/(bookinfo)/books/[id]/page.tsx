@@ -387,7 +387,3 @@ export default function BookDetailPage({
     </main>
   );
 }
-
-// export async function generateStaticParams() {
-//   return [{vid:"001"},{vid:"002"},{vid:"003"}]
-// }

@@ -86,7 +86,6 @@ export default function PromoteCard() {
           </div>
         </div>
 
-        {/* Right Side - Book Carousel */}
         <div className="relative">
           <div className="bg-white rounded-xl p-8 shadow-lg border border-gray-200">
             <h3 className="text-gray-900 text-2xl font-bold mb-6 text-center">
@@ -95,7 +94,6 @@ export default function PromoteCard() {
 
             {!loading ? (
               <>
-                {/* Carousel Container */}
                 <div className="relative h-96 overflow-hidden rounded-lg">
                   <div
                     className="flex transition-transform duration-500 ease-in-out h-full"
@@ -144,7 +142,6 @@ export default function PromoteCard() {
                   </div>
                 </div>
 
-                {/* Navigation Arrows */}
                 <button
                   onClick={() =>
                     setCurrentSlide(
@@ -189,7 +186,6 @@ export default function PromoteCard() {
                   </svg>
                 </button>
 
-                {/* Carousel Indicators */}
                 <div className="flex justify-center mt-6 gap-2">
                   {featuredBooks.map((_, index) => (
                     <button

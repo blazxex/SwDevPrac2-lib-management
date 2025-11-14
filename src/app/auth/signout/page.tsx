@@ -12,15 +12,19 @@ export default function SignOutPage() {
         <div className="flex justify-center gap-4">
           <button
             onClick={() => signOut({ callbackUrl: "/" })}
-            className="px-6 py-3 bg-red-600 hover:bg-red-500 font-bold text-white rounded-lg transition-colors"
+            className="px-6 py-3 bg-red-600 hover:bg-red-500 rounded-lg transition-colors"
           >
-            Sign Out
+            <span className="font-bold text-white">
+              Sign Out
+            </span>
           </button>
           <a
             href="/"
-            className="px-6 py-3 bg-gray-200 hover:bg-gray-300 font-bold text-gray-900 rounded-lg transition-colors"
+            className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
           >
-            Cancel
+            <span className="font-bold text-white">
+              Cancel
+            </span>
           </a>
         </div>
       </div>

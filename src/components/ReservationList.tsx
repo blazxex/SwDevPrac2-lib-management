@@ -93,7 +93,19 @@ export default function ReservationList() {
     }
 
     return (
-        <div className="space-y-6 p-4 max-w-4xl mx-auto">
+        <div className="space-y-6 max-w-4xl mx-auto">
+            <div className="text-center mb-8">
+                <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                    { isAdmin ? "Manage Reservations"
+                        : "My Reservations"
+                    }
+                </h1>
+                <p className="text-gray-600">
+                    { isAdmin ? "View and manage user reservations here"
+                        : "View and manage your reservations here"
+                    }
+                </p>
+            </div>
             {reservations.length === 0 ? (
                 <div className="bg-white text-gray-600 text-center shadow-lg rounded-lg p-5">
                     { isAdmin ? "No book reservations found."

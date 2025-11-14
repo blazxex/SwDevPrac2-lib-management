@@ -40,9 +40,6 @@ export default function Card({
               {bookItem.publisher}
             </p>
             <div className="flex items-center justify-between">
-              {/* <p className="text-gray-600 text-sm">
-                        <span className="font-medium">Available:</span> {bookItem.availableAmount}
-                      </p> */}
               <span
                 className={`px-2 py-1 text-xs rounded-full ${
                   bookItem.availableAmount > 0
