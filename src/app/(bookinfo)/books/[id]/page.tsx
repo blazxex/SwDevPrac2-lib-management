@@ -67,6 +67,8 @@ export default function BookDetailPage({
       }
     }
 
+    if (isEditing) return;
+
     loadData();
   }, [params, session, searchParams]);
 
